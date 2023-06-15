@@ -1,15 +1,21 @@
 import pytest
-from madlib.py import read_template, parse_template, merge
+from madlib import read_template, parse_template, merge
 
 
 def test_read_template_returns_stripped_string():
-    actual = read_template("assets/dark_and_stormy_night_template.txt")
-    expected = "It was a {Adjective} and {Adjective} {Noun}."
+    # This test returns stripped string, meaning all spaces,tabs,and line breaks have been removed
+    actual = read_template("madlib.txt")
+    expected = """It was a {Adjective} and {Adjective} {Noun}.
+Make Me A Video Game!
+I the {Adjective} and {Adjective} {A First Name} have {Past Tense Verb} {A First Name}'s {Adjective} sister and plan to steal her {Adjective} {Plural Noun}!
+
+What are a {Large Animal} and backpacking {Small Animal} to do? Before you can help {A Girl's Name}, you'll have to collect the {Adjective} {Plural Noun} and {Adjective} {Plural Noun} that open up the {Number 1-50} worlds connected to A {First Name}'s Lair. There are {Number} {Plural Noun} and {Number} {Plural Noun} in the game, along with hundreds of other goodies for you to find."""
     assert actual == expected
 
 
-@pytest.mark.skip("pending")
+# @pytest.mark.skip("pending")
 def test_parse_template():
+    # return the modified string and the extracted parts as a tuple.
     actual_stripped, actual_parts = parse_template(
         "It was a {Adjective} and {Adjective} {Noun}."
     )
@@ -20,16 +26,39 @@ def test_parse_template():
     assert actual_parts == expected_parts
 
 
-@pytest.mark.skip("pending")
+# @pytest.mark.skip("pending")
 def test_merge():
+    # 
     actual = merge("It was a {} and {} {}.", ("dark", "stormy", "night"))
     expected = "It was a dark and stormy night."
     assert actual == expected
 
 
-@pytest.mark.skip("pending")
+# @pytest.mark.skip("pending")
 def test_read_template_raises_exception_with_bad_path():
 
     with pytest.raises(FileNotFoundError):
         path = "missing.txt"
         read_template(path)
+
+
+
+#Brand new tests
+
+def test_newList():
+    parts = ("Adjective", "Noun", "Verb")
+    input_values = ["spooky", "cat", "ran"]
+    input_index = 0
+    def mock_input(prompt):
+        nonlocal input_index
+        value = input_values[input_index]
+        input_index += 1
+        return value
+    
+    
+def test_parse_template_with_no_fillable_parts():
+    actual_stripped, actual_parts = parse_template("This is a static template.")
+    expected_stripped = "This is a static template."
+    expected_parts = ()
+    assert actual_stripped == expected_stripped
+    assert actual_parts == expected_parts

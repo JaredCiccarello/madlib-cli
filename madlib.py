@@ -9,60 +9,55 @@ def read_template():
     template = file.read()
 
     print (template)
-  
+    
+def parse_template(template):
+  nonCurly = False
+  storyDictionary = ''
+  emptyFiller = ''
+  wholeWordList = []
+  ignore = ['{', '}']  
+  for char in template:
+    if char == '}':
+      wholeWordList.append(emptyFiller)
+      emptyFiller = ''
+      nonCurly = False
+    if char == '{':
+      storyDictionary += char
+      nonCurly = True
+    if nonCurly == False:
+        storyDictionary += char
+    else: 
+      if char not in ignore:
+        emptyFiller += char
+  return storyDictionary, tuple(wholeWordList)
 
-non_curly = False
-story_dictionary = ''
-story_list = []
-word_list = []
-empty_filler = ''
-ignore = ["{","}"]
-new_list = []
+def newList(wholeWordList):
+  newWholeWordList = []
 
-# parse template into useable parts
-for char in template:
-    if char == "}":
-        word_list.append(empty_filler)
-        empty_filler = ''
-        non_curly = False
+  for i in wholeWordList:
+    userInput = input(f"Enter a(n) {i}: ")
+    newWholeWordList.append(userInput)
+  print(newWholeWordList)
+  return tuple(newWholeWordList)
 
-    if char == "{":
-        # when changing value use single =
-        non_curly = True
-        story_dictionary = ''
+def merge(storyDictionary, newWholeWordTuple):
+  newWholeWordList = list(newWholeWordTuple)
+  pattern = r"\{([^}]*)\}"
+  result = re.sub(pattern, lambda x: newWholeWordList.pop(0), storyDictionary)
+  print(result)
+  return result
 
-    if non_curly == False:
-        if char not in ignore:
-          story_dictionary += char
-
-    else:
-        if char not in ignore:
-          empty_filler += char
-
-# prompt user to submit words for matching spaces
-for i in word_list:  
-  user_input = input(f"enter a(n) {i}: ")
-#  take user input and populate the template with user answer
-  updated_string = new_list.append(user_input)
-
-print(new_list)
-#  give user back completed response
-
-
-pattern = r"\{([^}]*)\}"
-result = re.sub(pattern, lambda word: new_list.pop(0), template)
-
-print(result)
-
-
-with open('finished_madlib.txt', "w")as file:
-    template = file.write(result)
-
+def write_madlib_to_file(file_path, madlib):
+  with open(file_path, 'w') as file:
+    file.write(madlib)
 
 if __name__ == "__main__":
-  welcome_message()
-  words = read_template(template)
-  pass
+  template = read_template('madlib.txt')
+  stripped_template, parts = parse_template(template)
+  newList = newList(parts)
+  finalStory = merge(stripped_template, newList)
+  write_madlib_to_file('finished_madlib.txt', finalStory)
+  parse_template(template)
   
 
 
