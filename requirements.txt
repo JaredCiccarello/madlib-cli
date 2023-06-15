@@ -1,0 +1,19 @@
+iniconfig==2.0.0
+packaging==23.1
+pluggy==1.0.0
+pytest==7.3.2
+
+# We want to Prompt the user to submit a series of words to fit each of the required components of the Madlib template.
+# With the collected user inputs, populate the template such that each provided input is placed into the correct position within the template.
+# After the resulting Madlib has been completed, provide the completed response back to the user in the command line.
+
+
+
+Result:
+Make Me A Video Game!
+
+I the majestic and purple Scott have colored JB's laughing sister and plan to steal her tickled arrows!
+
+What are a gorilla and backpacking butterfly to do? Before you can help Betty, you'll have to collect the silly tests and striped jackets that open up the 44 worlds connected to Wilson's' Lair. There are 3 leaves and 4 swords in the game, along with hundreds of other goodies for you to find.
+
+Make Me A Video Game!
