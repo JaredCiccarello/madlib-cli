@@ -4,6 +4,7 @@ from madlib import read_template, parse_template, merge
 
 def test_read_template_returns_stripped_string():
     # This test returns stripped string, meaning all spaces,tabs,and line breaks have been removed
+    # There was a spacing/input error here in "expected" which caused the parsing function to read the promopt wrong. Put the text directly next to the quotes to avoid errors
     actual = read_template("madlib.txt")
     expected = """Make Me A Video Game!
 
