@@ -1,21 +1,25 @@
 import re
-def welcome_message():
-  message = "Welcome to madlib!"
 
-  print(message)
+print("Welcome to madlib!")
 
-def read_template():
-  with open('madlib.txt', "r")as file:
+def read_template(file_path):
+  with open (file_path, 'r') as file:
     template = file.read()
 
-    print (template)
+    return template
     
 def parse_template(template):
+  # nonCurly variable is used to keep track whether or not characters are inside curly braces
   nonCurly = False
+  # 
   storyDictionary = ''
+  # emptyFiller variable is used to store content inside curly braces
   emptyFiller = ''
+  # wholeWordList stores individual words found inside the curly braces
   wholeWordList = []
+  # ignore simply ignores these specific characters when reading the template
   ignore = ['{', '}']  
+
   for char in template:
     if char == '}':
       wholeWordList.append(emptyFiller)
